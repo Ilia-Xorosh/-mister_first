@@ -1,12 +1,13 @@
 import s from './Post.module.css';
 
-const Post = () => {
+const Post = (props) => {
     return (
             <div className={s.item}>
                 <img src='https://ulibky.ru/wp-content/uploads/2019/10/avatarki_dlya_vatsap_dlya_devushek_42_28061027.jpg'/>
-                Post 1
+                { props.message }
             <div>
-                <span>like</span>
+                <span> Like </span>
+                { props.likeCount }
             </div>
             </div>
 )
