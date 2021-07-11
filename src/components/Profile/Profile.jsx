@@ -1,16 +1,14 @@
 import s from './Profile.module.css';
 import MyPost from './MyPost/MyPost';
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import Post from "./MyPost/Post/Post";
 
-const Profile = () => {
+const Profile = (props) => {
+
     return (
-        <div>
-        <div>
-        <img src='https://up.netbian.net/pic/69/f9/da/69f9da52945dad3a59a233c825421399.jpg'/>
-    </div>
-    <div>
-        ava + description
-    </div>
-    <MyPost />
+     <div>
+            < ProfileInfo />
+            <MyPost posts={props.posts} />
     </div>
     )
 }
