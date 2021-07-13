@@ -11,3 +11,31 @@
 .item a.activelink {
     color: #a0b8ff;
 }
+.friends {
+    margin-top: 50px;
+    text-align:center;
+}
+
+.friendsName {
+    font-size: 140%;
+}
+
+.friends a {
+    color: lightgray;
+    text-decoration: none;
+}
+
+.friends a.activelink {
+    color: #a0b8ff;
+}
+.avatar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding: 2px;
+}
