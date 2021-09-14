@@ -1,3 +1,4 @@
+import {renderEntireTree} from "../render";
 
 let state = {
     profilePage: {
@@ -32,6 +33,17 @@ let state = {
             {id: 5, name: 'Nastya', avatar: 'https://ulibky.ru/wp-content/uploads/2019/10/avatarki_dlya_vatsap_dlya_devushek_42_28061027.jpg'}
         ]
     }
+}
+
+export let addPost = (postMessage) => {
+    let newPost = {
+        id: 3,
+        message: postMessage,
+        likeCount: 0
+    };
+
+    state.profilePage.posts.push(newPost);
+    renderEntireTree(state);
 }
 
 export default state;
