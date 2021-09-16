@@ -1,11 +1,16 @@
-import {renderEntireTree} from "../render";
+import {observe} from "web-vitals/dist/modules/lib/observe";
+
+let renderEntireTree = () => {
+    console.log('State changed');
+}
 
 let state = {
     profilePage: {
          posts: [
             {id: 1, message: 'Hi, have are you?', likeCount: 5},
             {id: 2, message: 'It\'s my first post!', likeCount: 45}
-        ]
+        ],
+        newPostText: "Xoroshilov"
     },
     dialogsPage: {
          dialogs: [
@@ -35,15 +40,25 @@ let state = {
     }
 }
 
-export let addPost = (postMessage) => {
+export const addPost = () => {
     let newPost = {
         id: 3,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likeCount: 0
     };
 
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     renderEntireTree(state);
+}
+
+export const updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
+    renderEntireTree(state);
+}
+
+export const subscribe = (observer) => {
+    renderEntireTree = observer;
 }
 
 export default state;
