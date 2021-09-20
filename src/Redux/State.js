@@ -1,10 +1,10 @@
 import {observe} from "web-vitals/dist/modules/lib/observe";
 
-let renderEntireTree = () => {
-    console.log('State changed');
-}
 
-let state = {
+
+let store = {
+
+    _state: {
     profilePage: {
          posts: [
             {id: 1, message: 'Hi, have are you?', likeCount: 5},
@@ -38,30 +38,33 @@ let state = {
             {id: 5, name: 'Nastya', avatar: 'https://ulibky.ru/wp-content/uploads/2019/10/avatarki_dlya_vatsap_dlya_devushek_42_28061027.jpg'}
         ]
     }
+},
+    getState() {
+        return this._state;
+    },
+    _callSubscriber() {
+        console.log('State changed');
+    },
+    addPost() {
+        let newPost = {
+            id: 3,
+            message: this._state.profilePage.newPostText,
+            likeCount: 0
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+    },
+    updateNewPostText(newText) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer;
+    }
 }
 
-export const addPost = () => {
-    let newPost = {
-        id: 3,
-        message: state.profilePage.newPostText,
-        likeCount: 0
-    };
-
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    renderEntireTree(state);
-}
-
-export const updateNewPostText = (newText) => {
-    state.profilePage.newPostText = newText;
-    renderEntireTree(state);
-}
-
-export const subscribe = (observer) => {
-    renderEntireTree = observer;
-}
-
-export default state;
-
+export default store;
+window.store = store;
 
 
