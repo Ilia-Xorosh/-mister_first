@@ -1,6 +1,7 @@
 import {observe} from "web-vitals/dist/modules/lib/observe";
 
-
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 let store = {
 
@@ -39,13 +40,46 @@ let store = {
         ]
     }
 },
-    getState() {
-        return this._state;
-    },
     _callSubscriber() {
         console.log('State changed');
     },
-    addPost() {
+
+    getState() {
+        return this._state;
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer;
+    },
+
+    dispatch(action) {
+        if(action.type === ADD_POST) {
+            let newPost = {
+                id: 3,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if(action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
+
+    }
+}
+
+export const addPostActionCreator = () => ({ type: ADD_POST })
+
+export const apdateNewPostTextActionCreator = (text) => ({
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
+    })
+
+export default store;
+window.store = store;
+
+/*addPost() {
         let newPost = {
             id: 3,
             message: this._state.profilePage.newPostText,
@@ -58,13 +92,4 @@ let store = {
     updateNewPostText(newText) {
         this._state.profilePage.newPostText = newText;
         this._callSubscriber(this._state);
-    },
-    subscribe(observer) {
-        this._callSubscriber = observer;
-    }
-}
-
-export default store;
-window.store = store;
-
-
+    },*/
