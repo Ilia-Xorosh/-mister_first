@@ -12,7 +12,6 @@ import Friends from "./components/Friends/Friends";
 
 
 const App = (props) => {
-
     return (
         <BrowserRouter>
         <div className='app-wrapper'>
