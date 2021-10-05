@@ -35,7 +35,7 @@ const dialogsReduser = (state = initialState, action) => {
     }
 }
 
-export const sendMassageCreator = () => ({ type: SEND_MESSAGE })
+export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
 export const apdateNewMessageBodyCreator = (body) => ({
     type: UPDATE_NEW_MESSAGE_BODY,
     newBody: body
