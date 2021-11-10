@@ -7,3 +7,16 @@
 .header img {
     width: 70px;
 }
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a{
+    color: lightgray;
+}
+
+.loginBlock a.activelink {
+    color: #a0b8ff;
+}
+

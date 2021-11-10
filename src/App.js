@@ -10,13 +10,14 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App = (props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
 
-                <Header/>
+                <HeaderContainer/>
         .        <Navbar/>
                 <div className='app-wrapper-content'>
 
