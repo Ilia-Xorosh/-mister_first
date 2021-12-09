@@ -21,10 +21,6 @@ const Dialogs = (props) => {
         props.apdateNewMessageBody(body);
      }
 
-
-
-
-
     return (
         <div className= {s.dialogs}>
             <div className={s.dialogsItems}>
