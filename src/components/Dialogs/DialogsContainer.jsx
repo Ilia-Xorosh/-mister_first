@@ -2,7 +2,6 @@ import React from "react";
 import {sendMessageCreator} from "../../Redux/Dialogs-reduser";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {withAuthRedirect} from "../../Hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 

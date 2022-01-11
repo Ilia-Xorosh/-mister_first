@@ -50,18 +50,14 @@ follow (userId) {
 
 export const authAPI = {
     me () {
-    return instance.get(`auth/me`)
+    return instance.get(`auth/me`);
     },
 
-    loginPost () {
-    return instance.post(`auth/login`).then(response => {
-        return response.data;
-    })
+    loginPost (email, password, rememberMe = false) {
+    return instance.post(`auth/login`, {email, password, rememberMe});
     },
 
-    loginDelete () {
-        return instance.delete(`auth/login`).then(response => {
-            return response.data;
-        })
+    logOut () {
+        return instance.delete(`auth/login`);
     }
 }
