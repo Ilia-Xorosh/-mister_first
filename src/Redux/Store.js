@@ -1,5 +1,4 @@
-import profileReduser from "./Profile-reduser";
-import dialogsReduser from "./Dialogs-reduser";
+
 
 let store = {
 
@@ -61,8 +60,6 @@ let store = {
 }
 
 
-export default store;
-window.store = store;
 
 /*addPost() {
         let newPost = {
