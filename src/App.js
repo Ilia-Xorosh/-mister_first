@@ -14,6 +14,7 @@ import LoginPage from "./components/Login/Login";
 import {connect} from "react-redux";
 import {initializeApp} from "./Redux/App-reduser";
 import Preloader from "./components/common/Preloader/Preloader";
+import store from "./Redux/Redux-store";
 
 class App extends React.Component {
     componentDidMount() {
