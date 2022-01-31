@@ -12,7 +12,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
 import {connect} from "react-redux";
-import {initializeApp} from "./Redux/App-reduser";
+import {initializeApp} from "./Redux/AppReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./Redux/Redux-store";
 
@@ -34,7 +34,6 @@ class App extends React.Component {
                         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/login' render={() => <LoginPage/>}/>
-
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>

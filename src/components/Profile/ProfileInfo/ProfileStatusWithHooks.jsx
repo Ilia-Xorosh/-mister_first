@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {updateStatus} from "../../../Redux/Profile-reduser";
+import {updateStatus} from "../../../Redux/ProfileReducer";
 
 const ProfileStatusWithHooks = (props) => {
     let [editMode, setEditMode] = useState(false);

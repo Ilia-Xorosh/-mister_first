@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     unfollow,
     toggleFollowingProgress, requestUsers,
-} from "../../Redux/Users-reduser";
+} from "../../Redux/UsersReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {
@@ -21,11 +21,13 @@ import {
 class UsersConteiner extends React.Component {
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.requestUsers(currentPage, pageSize);
     }
 
     onPageChanget = (pageNumber) => {
-        this.props.requestUsers(pageNumber, this.props.setCurrentPage(pageNumber));
+        const {setCurrentPage} = this.props;
+        this.props.requestUsers(pageNumber, setCurrentPage(pageNumber));
     }
 
     render() {

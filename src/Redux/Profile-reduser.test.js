@@ -1,4 +1,4 @@
-import profileReduser, {addPostActionCreator, deletePost, setUserProfile} from "./Profile-reduser";
+import profileReducer, {addPostActionCreator, deletePost, setUserProfile} from "./ProfileReducer";
 
 let state = {
     posts: [
@@ -11,18 +11,18 @@ let state = {
 
 test('Length of post should be incremented', () => {
     let action = addPostActionCreator("Its me");
-    let newState = profileReduser(state,action);
+    let newState = profileReducer(state,action);
     expect(newState.posts.length).toBe(3);
 });
 
 test('After deleting length of messages should by  decrement', () => {
     let action = deletePost(1);
-    let newState = profileReduser(state,action);
+    let newState = profileReducer(state,action);
     expect(newState.posts.length).toBe(1);
 });
 
 test(`After deleting length shouldn't by  decrement if id is incorrect`, () => {
     let action = deletePost(1000);
-    let newState = profileReduser(state,action);
+    let newState = profileReducer(state,action);
     expect(newState.posts.length).toBe(2);
 });

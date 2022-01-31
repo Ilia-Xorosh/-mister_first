@@ -1,4 +1,4 @@
-import {getAuthUserData} from "./Auth-reduser";
+import {getAuthUserData} from "./AuthReducer";
 
 const SET_INITIALIZED_SUCCESS = 'SET-INITIALIZED-SUCCESS';
 
@@ -7,7 +7,7 @@ let initialState = {
     initialized: false
 }
 
-const appReduser = (state = initialState, action) => {
+const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
@@ -35,4 +35,4 @@ export const initializeApp = () => (dispatch) => {
 
 
 
-    export default appReduser;
+    export default appReducer;

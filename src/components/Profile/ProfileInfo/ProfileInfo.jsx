@@ -4,28 +4,25 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
-    if(!props.profile) {
+const ProfileInfo = ({profile, status, updateStatus}) => {
+    if(!profile) {
         return <Preloader/>
     }
-    let lookingForAJob = props.profile.lookingForAJob;
+    let lookingForAJob = profile.lookingForAJob;
     lookingForAJob = true ? 'Yes': 'No';
 
-    let facebook = <a href={props.profile.contacts.facebook}>Facebook</a>
+    let facebook = <a href={profile.contacts.facebook}>Facebook</a>
 
     return (
         <div>
-            {/*<div>
-                <img src='https://up.netbian.net/pic/69/f9/da/69f9da52945dad3a59a233c825421399.jpg'/>
-            </div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                <img src={profile.photos.large}/>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
                 <div>
-                    <strong>{props.profile.fullName}</strong>
+                    <strong>{profile.fullName}</strong>
                 </div>
                 <div>
-                    <span className={s.profileStatus}>"{props.profile.aboutMe}"</span>
+                    <span className={s.profileStatus}>"{profile.aboutMe}"</span>
                 </div>
                 <div>
                     <strong>{facebook}</strong>
@@ -34,7 +31,7 @@ const ProfileInfo = (props) => {
                     <span>Looking for a job: {lookingForAJob}</span>
             </div>
                 <div>
-                    <span className={s.profileStatus}>"{props.profile.lookingForAJobDescription}"</span>
+                    <span className={s.profileStatus}>"{profile.lookingForAJobDescription}"</span>
                 </div>
             </div>
         </div>
