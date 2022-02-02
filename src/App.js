@@ -11,7 +11,7 @@ import Friends from "./components/Friends/Friends";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./Redux/AppReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./Redux/Redux-store";
@@ -25,7 +25,7 @@ class App extends React.Component {
             return <Preloader/>}
         return (
                 <div className='app-wrapper'>
-                    <BrowserRouter>
+
                     <HeaderContainer/>
                     . <Navbar/>
                     <div className='app-wrapper-content'>
@@ -39,7 +39,7 @@ class App extends React.Component {
                         <Route path='/settings' component={Settings}/>
                         <Route path='/friends' component={Friends}/>
                     </div>
-                    </BrowserRouter>
+
                 </div>
         )
     }
@@ -48,4 +48,15 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 });
 
-export default connect(mapStateToProps, {initializeApp}) (App);
+const AppContainer = connect(mapStateToProps, {initializeApp}) (App);
+
+const MainApp = (props) => {
+    return  ( <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default MainApp;
