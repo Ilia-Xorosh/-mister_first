@@ -5,3 +5,7 @@
 .profileStatus {
     font-style: italic;
 }
+
+.mainPhoto {
+    max-width: 200px;
+}
