@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.png"
+import ProfileDataReduxForm from "./ProfileDataForm";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+
+    let [editMode, setEditMode] = useState(false);
+
     if(!profile) {
         return <Preloader/>
     }
-    let lookingForAJob = profile.lookingForAJob;
-    lookingForAJob = true ? 'Yes': 'No';
-
-    let facebook = <a href={profile.contacts.facebook}>Facebook</a>
 
     let onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
@@ -19,30 +19,57 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}) => {
         }
     }
 
+    const onSubmit = (formData) => {
+        saveProfile(formData).then(() => {
+            setEditMode(false);
+        })
+
+    }
+
     return (
         <div>
             <div className={s.descriptionBlock}>
                 <img src={profile.photos.large || userPhoto} className={s.mainPhoto}/>
                 { isOwner && <input type={"file"} onChange={onMainPhotoSelected}/> }
+
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-                <div>
-                    <strong>{profile.fullName}</strong>
-                </div>
-                <div>
-                    <span className={s.profileStatus}>"{profile.aboutMe}"</span>
-                </div>
-                <div>
-                    <strong>{facebook}</strong>
-                </div>
-            <div>
-                    <span>Looking for a job: {lookingForAJob}</span>
-            </div>
-                <div>
-                    <span className={s.profileStatus}>"{profile.lookingForAJobDescription}"</span>
-                </div>
+
+                {editMode
+                    ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                    : <ProfileData  profile={profile} isOwner={isOwner} goToEditMode={() => {setEditMode(true)}}/>
+                }
             </div>
         </div>
     )
+}
+
+const ProfileData = ({profile, isOwner, goToEditMode}) => {
+    return ( <div>
+        <div>
+            {isOwner && <button onClick={goToEditMode}>edit</button>}
+        </div>
+        <div>
+        <strong>{profile.fullName}</strong>
+    </div>
+    <div>
+        <b className={s.profileStatus}>About me</b>: {profile.aboutMe}
+    </div>
+    <div>
+        <b>Looking for a job</b>: {profile.lookingForAJob ? 'Yes': 'No'}
+    </div>
+    <div>
+        <b className={s.profileStatus}>My professional skills</b>: {profile.lookingForAJobDescription}
+    </div>
+    <div>
+        <b>Contacts</b>: {Object.keys(profile.contacts).map(key => { return <Contacts key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+    })}
+    </div>
+    </div>)
+}
+
+
+const Contacts = ({contactTitle, contactValue}) => {
+return <div className={s.contact}><b>{contactTitle}</b>: {contactValue}</div>
 }
 
 export default ProfileInfo;
