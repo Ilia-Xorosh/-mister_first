@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {HashRouter, Route} from "react-router-dom";
+import {HashRouter, Redirect, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -19,9 +19,19 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (reason, promise) => {
+alert('Some error occurred');
+//console.error(promiseRejectionEvent);
+    }
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+    }
+
+
     render() {
         if (!this.props.initialized) {
             return <Preloader/>}
@@ -31,7 +41,9 @@ class App extends React.Component {
                     <HeaderContainer/>
                     . <Navbar/>
                     <div className='app-wrapper-content'>
-
+                        <switch>
+                        <Route exact path='/'
+                               render={() => <Redirect to={'/profile'}/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/login' render={() => <LoginPage/>}/>
                         <Route path='/news' component={News}/>
@@ -44,6 +56,8 @@ class App extends React.Component {
 
                         <Route path='/profile/:userId?'
                                render={withSuspense(ProfileContainer)}/>
+                            <Route path='*' render={() => <div>404 NOT FOND</div>}/>
+                        </switch>
                     </div>
 
                 </div>
