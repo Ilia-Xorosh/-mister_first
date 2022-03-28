@@ -1,19 +1,26 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import DialogReduxForm from "./DialogForm/DialogForm";
+import {initialStateType} from "../../Redux/DialogsReducer";
 
+type PropsType = {
+    dialogsPage: initialStateType
+    sendMessage: (newMessageBody: string) => void
+}
 
+export type NewMessageFormValuesType = {
+    newMessageBody: string
+}
 
-const Dialogs = (props) => {
+const Dialogs: FC<PropsType> = (props) => {
 
     let state = props.dialogsPage;
     let dialogsElements = state.dialogs.map( d => <DialogItem name={d.name} avatar={d.avatar} id={d.id} /> );
     let messagesElements = state.messages.map( m => <Message  message={m.message} id={m.id} /> );
-    let newMessageBody = state.newMessageBody;
 
-    let addNewMessage = (values) => {
+    let addNewMessage = (values: NewMessageFormValuesType) => {
         props.sendMessage(values.newMessageBody);
     }
 
@@ -40,16 +47,3 @@ const Dialogs = (props) => {
 }
 
 export default Dialogs;
-
-/* <DialogForm value={newMessageBody} onChange={onNewMessageChang} onClick={onSendMessageClick}/>
-<div>
-                     <div>
-                         <textarea
-    value={newMessageBody}
-    onChange={onNewMessageChang}
-    placeholder='Enter your message'/>
-                     </div>
-                     <div>
-                         <button onClick={onSendMessageClick}>Add Massage</button>
-                     </div>
-                 </div> */

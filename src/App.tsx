@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component, ComponentType, FC} from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {HashRouter, Redirect, Route} from "react-router-dom";
@@ -12,23 +12,28 @@ import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./Redux/AppReducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./Redux/Redux-store";
+import store, {appStateType} from "./Redux/Redux-store";
 import {withSuspense} from "./Hoc/WithSuspense";
 
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
-class App extends React.Component {
-    catchAllUnhandledErrors = (reason, promise) => {
-alert('Some error occurred');
-//console.error(promiseRejectionEvent);
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
+class App extends React.Component<MapStatePropsType & DispatchPropsType> {
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+alert('Some error occurred')
+//console.error(promiseRejectionEvent)
     }
     componentDidMount() {
-        this.props.initializeApp();
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+        this.props.initializeApp()
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
     componentWillUnmount() {
-        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
 
@@ -44,7 +49,7 @@ alert('Some error occurred');
                         <switch>
                         <Route exact path='/'
                                render={() => <Redirect to={'/profile'}/>}/>
-                        <Route path='/users' render={() => <UsersContainer/>}/>
+                        <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'}/>}/>
                         <Route path='/login' render={() => <LoginPage/>}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
@@ -64,13 +69,13 @@ alert('Some error occurred');
         )
     }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: appStateType) => ({
     initialized: state.app.initialized
-});
+})
 
-const AppContainer = connect(mapStateToProps, {initializeApp}) (App);
+const AppContainer = connect<MapStatePropsType, DispatchPropsType, unknown, appStateType>(mapStateToProps, {initializeApp}) (App)
 
-const MainApp = (props) => {
+const MainApp: FC = () => {
     return  ( <HashRouter>
         <Provider store={store}>
             <AppContainer />
@@ -79,4 +84,4 @@ const MainApp = (props) => {
     )
 }
 
-export default MainApp;
+export default MainApp

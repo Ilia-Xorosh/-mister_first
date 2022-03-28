@@ -1,9 +1,17 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './Users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../types/types";
 
-const User = ({user, followingInProgress, unfollow, follow}) => {
+type PropType = {
+    user: UserType
+    followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+}
+
+const User: FC<PropType> = ({user, followingInProgress, unfollow, follow}) => {
     return (
         <div>
                 <span>
@@ -16,7 +24,6 @@ const User = ({user, followingInProgress, unfollow, follow}) => {
                 <span>
                     <div>
                        {user.followed
-
                            ? <button disabled={followingInProgress.some(id => id === user.id)}
                                      onClick={ () => { unfollow(user.id) }}>Unfollow</button>
 

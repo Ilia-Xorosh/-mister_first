@@ -1,8 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostContainer from "./MyPost/MyPostContainer";
+import {ProfileType} from "../../types/types";
+import {appStateType} from "../../Redux/Redux-store";
 
-const Profile = (props) => {
+type PropsType = {
+    profile: ProfileType
+    status: string | null
+    updateStatus: () => void
+    savePhoto: () => void
+    saveProfile: () => void
+    isOwner: boolean
+    store: appStateType
+}
+
+const Profile: FC<PropsType> = (props) => {
 
     return (
      <div>

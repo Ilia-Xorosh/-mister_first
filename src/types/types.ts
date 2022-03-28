@@ -14,32 +14,33 @@ export type PostType = {
     likeCount: number | null
 }
 export type ContactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 export type PhotoType = {
-    small: string | null
-    large: string | null
+    small: string
+    large: string
 }
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string | null
+    lookingForAJobDescription: string
+    fullName: string
     contacts: ContactsType
     photos: PhotoType
+    aboutMe: string
 }
 
 export type UserType = {
     id: number
     name: string | null
     status: string | null
-    photos: PhotoType | null
+    photos: PhotoType
     followed: boolean
 }
