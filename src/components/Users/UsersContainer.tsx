@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
@@ -35,7 +35,7 @@ type MapDispatchPropsType = {
 }
 
 type OwnPropsType = {
-    pageTitle: string
+
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
@@ -54,7 +54,6 @@ class UsersContainer extends React.Component<PropsType> {
 
     render() {
         return <>
-            <h2>{this.props.pageTitle}</h2>
             {this.props.isFetching ? <Preloader /> : null}
             <Users currentPage={this.props.currentPage}
                       onPageChanget={this.onPageChanget}
@@ -103,4 +102,4 @@ let mapStateToProps = (state: appStateType): MapStatePropsType => {
     }
 }*/
 
-export default compose (connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, appStateType>(mapStateToProps, {follow, unfollow, getUsers: requestUsers}))(UsersContainer)
+export default compose<ComponentType>(connect(mapStateToProps, {follow, unfollow, getUsers: requestUsers}))(UsersContainer)

@@ -1,12 +1,13 @@
 import profileReducer, {actions} from "./ProfileReducer";
+import {PostType, ProfileType} from "../types/types";
 
 let state = {
     posts: [
         {id: 1, message: 'Hi, have are you?', likeCount: 5},
         {id: 2, message: 'It\'s my first post!', likeCount: 45}
-    ],
-    profile: null,
-    status: ''
+    ] as Array<PostType>,
+    profile: {} as ProfileType,
+    status: '' as string
 }
 
 

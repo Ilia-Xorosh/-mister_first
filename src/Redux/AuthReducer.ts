@@ -38,10 +38,10 @@ export const actions = {
 }
 
 export const getAuthUserData = ():ThunkType => async (dispatch) => {
-    const data = await authAPI.me()
+    const meData = await authAPI.me()
 
-        if (data.resultCode === ResultCodeEnum.Error) {
-            let {id, login, email} = data.data
+        if (meData.resultCode === ResultCodeEnum.Error) {
+            let {id, login, email} = meData.data
             dispatch(actions.setAuthUserData(id, login, email, true))
 
     }
@@ -74,7 +74,7 @@ export const getCaptchaUrl = ():ThunkType => async (dispatch) => {
 export const logOut = ():ThunkType => async (dispatch) => {
     const data = await authAPI.logOut()
         if (data.resultCode === ResultCodeEnum.Success) {
-            dispatch(getAuthUserData(/*null, null, null, false*/))
+            dispatch(actions.setAuthUserData(null, null, null, false))
         }
 }
 

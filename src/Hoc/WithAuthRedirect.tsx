@@ -13,7 +13,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
 }
 export function withAuthRedirect<WCP>(WrappedComponent: ComponentType<WCP>) {
-
+debugger
     const RedirectComponent: FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
         let {isAuth, ...restProps} = props
         if (!props.isAuth) return <Redirect to={'/login'}/>
@@ -21,6 +21,6 @@ export function withAuthRedirect<WCP>(WrappedComponent: ComponentType<WCP>) {
     }
 
     let ConnectedAuthRedirectComponent = connect<MapStatePropsType, MapDispatchPropsType, WCP, appStateType>(mapStateToPropsForRedirect,
-        {fake: () => {}}) (RedirectComponent)
+        {}) (RedirectComponent)
     return ConnectedAuthRedirectComponent
 }

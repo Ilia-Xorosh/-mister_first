@@ -1,8 +1,8 @@
 import s from "../Navbar.module.css";
 import {NavLink} from "react-router-dom";
-import React from "react";
+import React, {FC} from "react";
 
-const SideBar = () => {
+const SideBar: FC = () => {
   return (  <div className={s.friends}>
         <NavLink to='/friends' activeClassName={s.activelink} className={s.friendsName}>Friends</NavLink>
         <div className={s.avatar}>

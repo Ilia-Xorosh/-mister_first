@@ -1,8 +1,8 @@
 import React from "react";
-
+// todo: remove duplication: type status
 type PropsType = {
     status: string
-    updateStatus: (status: string | null) => void
+    updateStatus: (status: string) => void
 }
 
 type StateType = {

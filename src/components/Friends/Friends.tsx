@@ -1,7 +1,7 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './Friends.module.css';
 
-const Friends = (props) => {
+const Friends: FC = (props) => {
 
     return (
        <div className={s.friends}>'Friends'</div>

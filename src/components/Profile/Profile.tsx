@@ -2,16 +2,14 @@ import React, { FC } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostContainer from "./MyPost/MyPostContainer";
 import {ProfileType} from "../../types/types";
-import {appStateType} from "../../Redux/Redux-store";
 
 type PropsType = {
     profile: ProfileType
-    status: string | null
-    updateStatus: () => void
-    savePhoto: () => void
-    saveProfile: () => void
+    status: string
+    updateStatus: (status: string) => void
     isOwner: boolean
-    store: appStateType
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
 }
 
 const Profile: FC<PropsType> = (props) => {
@@ -24,7 +22,7 @@ const Profile: FC<PropsType> = (props) => {
                        isOwner={props.isOwner} savePhoto={props.savePhoto}
                        saveProfile={props.saveProfile}/>
 
-         <MyPostContainer store={props.store}/>
+         <MyPostContainer />
     </div>
     )
 }

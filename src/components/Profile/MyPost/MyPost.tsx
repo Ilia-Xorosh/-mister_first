@@ -1,20 +1,25 @@
 import React, {FC} from "react";
 import s from './MyPost.module.css';
 import Post from './Post/Post';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../Utils/validators/validators";
-import {Textarea} from "../../common/FormControls/FormControl";
+import {createField, GetStringKeys, Textarea} from "../../common/FormControls/FormControl";
 import {PostType} from "../../../types/types";
+import {MapDispatchPropsType, MapStatePropsType} from "./MyPostContainer";
 
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength500 = maxLengthCreator(500);
 
 type PropsType = {}
+type FormValuesType = {
+    newPostText: string
+}
+type FormValuesTypeKeys = GetStringKeys<FormValuesType>
 
-const AddPostForm: FC<InjectedFormProps<LoginFormValuesType, PropsType> & PropsType> = (props) => {
+const AddPostForm: FC<InjectedFormProps<FormValuesType, PropsType> & PropsType> = (props) => {
     return (<form onSubmit={props.handleSubmit}>
         <div>
-            <Field name={"newPostText"} component={Textarea} validate={[required, maxLength10]} placeholder={'Post message'}/>
+            {createField<FormValuesTypeKeys>("Post message", "newPostText", Textarea, [required, maxLength500])}
         </div>
         <div>
             <button>Post</button>
@@ -22,20 +27,16 @@ const AddPostForm: FC<InjectedFormProps<LoginFormValuesType, PropsType> & PropsT
     </form>)
 }
 
-const MyPostReduxForm = reduxForm({
+const MyPostReduxForm = reduxForm<FormValuesType, PropsType>({
     form: 'ProfileAddNewPostForm'
 })(AddPostForm)
 
-type MyPostPropsType = {
-    posts: Array<PostType>
-    addPost: (newPostText: string) => void
-}
 
-const MyPost: FC<MyPostPropsType> = React.memo(props => {
+const MyPost: FC<MapStatePropsType & MapDispatchPropsType> = React.memo(props => {
 
-    let postsElements = props.posts.map( p => <Post key={p.id} message={p.message} likeCount={p.likeCount} id={p.id}/> );
+    let postsElements = [...props.posts].reverse().map( p => <Post key={p.id} message={p.message} likeCount={p.likeCount} id={p.id}/> );
 
-    let AddNewPost = (values: any) => {
+    let AddNewPost = (values: FormValuesType) => {
         props.addPost(values.newPostText);
     }
 

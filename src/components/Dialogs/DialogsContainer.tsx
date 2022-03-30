@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {actions} from "../../Redux/DialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -13,4 +13,4 @@ let mapStateToProps = (state: appStateType) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {...actions}), withAuthRedirect) (Dialogs);
+export default compose<ComponentType>(connect(mapStateToProps, {...actions}), withAuthRedirect) (Dialogs);

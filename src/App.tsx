@@ -18,10 +18,6 @@ import {withSuspense} from "./Hoc/WithSuspense";
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
-type MapStatePropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    initializeApp: () => void
-}
 
 class App extends React.Component<MapStatePropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -49,7 +45,7 @@ alert('Some error occurred')
                         <switch>
                         <Route exact path='/'
                                render={() => <Redirect to={'/profile'}/>}/>
-                        <Route path='/users' render={() => <UsersContainer pageTitle={'Пользователи'}/>}/>
+                        <Route path='/users' render={() => <UsersContainer />}/>
                         <Route path='/login' render={() => <LoginPage/>}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
@@ -57,10 +53,10 @@ alert('Some error occurred')
                         <Route path='/friends' component={Friends}/>
 
                         <Route path='/dialogs'
-                               render={withSuspense(DialogsContainer)}/>
+                               render={() => withSuspense(DialogsContainer)}/>
 
                         <Route path='/profile/:userId?'
-                               render={withSuspense(ProfileContainer)}/>
+                               render={() => withSuspense(ProfileContainer)}/>
                             <Route path='*' render={() => <div>404 NOT FOND</div>}/>
                         </switch>
                     </div>
@@ -73,7 +69,7 @@ const mapStateToProps = (state: appStateType) => ({
     initialized: state.app.initialized
 })
 
-const AppContainer = connect<MapStatePropsType, DispatchPropsType, unknown, appStateType>(mapStateToProps, {initializeApp}) (App)
+const AppContainer = connect<MapStatePropsType, DispatchPropsType, {}, appStateType>(mapStateToProps, {initializeApp}) (App)
 
 const MainApp: FC = () => {
     return  ( <HashRouter>
@@ -85,3 +81,8 @@ const MainApp: FC = () => {
 }
 
 export default MainApp
+
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}

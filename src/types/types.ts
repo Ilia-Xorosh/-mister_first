@@ -1,7 +1,7 @@
 export type DialogsType = {
     id: number
     name: string | null
-    avatar: string | null
+    avatar: string | undefined
 }
 export type MessagesType = {
     id: number
@@ -40,7 +40,7 @@ export type ProfileType = {
 export type UserType = {
     id: number
     name: string | null
-    status: string | null
+    status: string
     photos: PhotoType
     followed: boolean
 }

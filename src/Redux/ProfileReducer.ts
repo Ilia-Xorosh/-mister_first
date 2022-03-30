@@ -12,7 +12,7 @@ let initialState = {
         {id: 1, message: 'Hi, have are you?', likeCount: 5},
         {id: 2, message: 'It\'s my first post!', likeCount: 45}
     ] as Array<PostType>,
-    profile: null as (null | ProfileType),
+    profile: {} as ProfileType,
     status: '' as string
 }
 
