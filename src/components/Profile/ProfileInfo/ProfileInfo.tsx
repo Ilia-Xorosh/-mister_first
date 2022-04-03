@@ -7,7 +7,7 @@ import ProfileDataReduxForm from "./ProfileDataForm";
 import {ContactsType, ProfileType} from "../../../types/types";
 
 type ProfileInfoPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -36,7 +36,6 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, status, updateStatus, i
         })
 
     }
-
     return (
         <div>
             <div className={s.descriptionBlock}>
