@@ -4,7 +4,7 @@ import MyPostContainer from "./MyPost/MyPostContainer";
 import {ProfileType} from "../../types/types";
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -13,7 +13,6 @@ type PropsType = {
 }
 
 const Profile: FC<PropsType> = (props) => {
-
     return (
      <div>
          < ProfileInfo profile={props.profile}

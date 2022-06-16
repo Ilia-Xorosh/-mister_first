@@ -18,6 +18,8 @@ import {withSuspense} from "./Hoc/WithSuspense";
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
 
 class App extends React.Component<MapStatePropsType & DispatchPropsType> {
     catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -40,7 +42,7 @@ alert('Some error occurred')
                 <div className='app-wrapper'>
 
                     <HeaderContainer/>
-                    . <Navbar/>
+                    <Navbar/>
                     <div className='app-wrapper-content'>
                         <switch>
                         <Route exact path='/'
@@ -53,10 +55,10 @@ alert('Some error occurred')
                         <Route path='/friends' component={Friends}/>
 
                         <Route path='/dialogs'
-                               render={() => withSuspense(DialogsContainer)}/>
+                               render={() => <SuspendedDialogs />}/>
 
                         <Route path='/profile/:userId?'
-                               render={() => withSuspense(ProfileContainer)}/>
+                               render={() => <SuspendedProfile />}/>
                             <Route path='*' render={() => <div>404 NOT FOND</div>}/>
                         </switch>
                     </div>

@@ -14,7 +14,6 @@ let initialState = {
 }
 
 const authReducer = (state = initialState, action: ActionType): initialStateType => {
-
     switch (action.type) {
 
         case "auth/SET-USER-DATA":
@@ -40,7 +39,7 @@ export const actions = {
 export const getAuthUserData = ():ThunkType => async (dispatch) => {
     const meData = await authAPI.me()
 
-        if (meData.resultCode === ResultCodeEnum.Error) {
+        if (meData.resultCode === ResultCodeEnum.Success) {
             let {id, login, email} = meData.data
             dispatch(actions.setAuthUserData(id, login, email, true))
 
@@ -58,7 +57,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             if (data.resultCode === ResultCodeForCaptchaEnum.captchaIsRequired) {
                 dispatch(getCaptchaUrl())
             }
-            let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+            let message = data.messages.length > 0 ? data.messages[0] : "Some error"
                 dispatch(stopSubmit('login', {_error: message}))
         }
 }

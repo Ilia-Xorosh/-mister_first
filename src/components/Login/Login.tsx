@@ -15,7 +15,6 @@ const maxLength15 = maxLengthCreator(15);
 type LoginFormOwnProps = {
     captchaUrl: string | null
 }
-
 const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
 return (<form onSubmit={handleSubmit}>
     {createField<LoginFormValuesTypeKeys>("Email", "email", Input, [required, maxLength20])}
